@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(41, 40, 40);
+  color: white;
+  font-family: "Consolas";
+}
+
+.main-container {
+  margin: 0.5rem;
+}
+
+.page-title {
+  text-align: center;
+  padding: 0.3rem;
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.page-title .title-word {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.typing-paragraph {
+  margin: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  position: relative;
+}
+
+.typing-paragraph .cursor {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  position: absolute;
+  animation: blink 0.5s ease-in-out infinite;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.buttons {
+  background-color: green;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.typing-paragraph .typed {
+  color: rgb(255, 255, 255);
+}
