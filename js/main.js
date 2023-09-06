@@ -12,10 +12,11 @@ let doneElement = document.createElement("span");
 doneElement.classList.add("typed");
 let undoneElement = document.createElement("span");
 
-let interval;
-let seconds = 0;
-
 let incorrectLetterCount = 0;
+let wordCount;
+
+let startingTimestamp;
+let endingTimestamp;
 
 let paragraph =
   "Went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short. I suppose I just jumped really high.";
@@ -41,24 +42,15 @@ document.getElementById("redo").addEventListener("click", (event) => {
 });
 
 document.addEventListener("keypress", (event) => {
-  if (currentIndex == 0) {
-    interval = setInterval(() => {
-      seconds = seconds + 1;
-    }, 1000);
+  if (currentIndex === 0 && paragraph.charAt(currentIndex) === event.key) {
+    startingTimestamp = Date.now();
   }
 
   if (isCompleted) return;
 
-  // console.log(
-  //   `Typed: ${event.key} and Current: ${paragraph.charAt(currentIndex)}`
-  // );
-
   if (paragraph.charAt(currentIndex) === event.key) {
     doneLetters = paragraph.slice(0, currentIndex + 1);
     notDoneLetters = paragraph.slice(currentIndex + 1, paragraph.length);
-
-    // console.log("Done letters: " + doneLetters);
-    // console.log("Undon letters: " + notDoneLetters);
 
     currentIndex++;
   }
@@ -72,16 +64,15 @@ document.addEventListener("keypress", (event) => {
   paragraphElement.innerHTML = "";
   paragraphElement.append(doneElement, cursorElement, undoneElement);
 
-  let words = doneLetters.split(" ");
-  let wpm = words.length / (seconds / 60);
-
-  console.log(Math.round(wpm));
-
   if (notDoneLetters.length <= 0) {
-    clearInterval(interval);
+    endingTimestamp = Date.now();
+
+    isCompleted = true;
+    let timpestampDifference = endingTimestamp - startingTimestamp;
+    let min = timpestampDifference / 1000 / 60;
+    let wpm = wordCount / min;
 
     paragraphElement.textContent = `WPM: ${Math.round(wpm)}`;
-    isCompleted = true;
   }
 });
 
@@ -99,4 +90,5 @@ function reset(text) {
   seconds = 0;
 
   paragraphElement.textContent = text;
+  wordCount = text.split(" ").length;
 }
