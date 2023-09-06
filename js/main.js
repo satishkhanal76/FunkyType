@@ -40,8 +40,6 @@ document.getElementById("redo").addEventListener("click", (event) => {
   reset(paragraph);
 });
 
-let words;
-
 document.addEventListener("keypress", (event) => {
   if (currentIndex == 0) {
     interval = setInterval(() => {
@@ -74,6 +72,7 @@ document.addEventListener("keypress", (event) => {
   paragraphElement.innerHTML = "";
   paragraphElement.append(doneElement, cursorElement, undoneElement);
 
+  let words = doneLetters.split(" ");
   let wpm = words.length / (seconds / 60);
 
   console.log(Math.round(wpm));
@@ -100,6 +99,4 @@ function reset(text) {
   seconds = 0;
 
   paragraphElement.textContent = text;
-
-  words = paragraph.split(" ");
 }
